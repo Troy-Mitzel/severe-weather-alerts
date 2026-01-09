@@ -1,0 +1,134 @@
+/* BODY & ANIMATED GRADIENT */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    margin: 0;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #0a1f44, #1a2b50, #0f1c3c, #1c2f57);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: white;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* HEADER */
+header {
+    background-color: #0b173b;
+    padding: 15px 0;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-size: 40px;
+    margin: 0;
+}
+
+/* TOP CONTROLS */
+.top-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+/* DROPDOWN */
+.state-dropdown {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 15px;
+    border: none;
+}
+
+/* BUTTONS */
+.refresh-btn {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.refresh-btn:hover {
+    background-color: #1d4ed8;
+}
+
+.location-buttons {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.spinner {
+    margin-left: 10px;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ALERTS */
+.alerts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.alert {
+    position: relative;
+    padding: 20px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.alert-shape {
+    position: absolute;
+    inset: -10px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    transform: rotate(-3deg);
+    z-index: 0;
+}
+
+.alert h2, .alert p, .alert a {
+    position: relative;
+    z-index: 1;
+}
+
+/* ALERT COLORS */
+.watch { background-color: #facc15; color: black; }
+.warning { background-color: #dc2626; color: white; }
+.emergency { background-color: #7c3aed; color: white; }
+.advisory { background-color: #f472b6; color: black; }
+.winter-watch { background-color: #bae6fd; color: black; }
+.winter-warning { background-color: #2563eb; color: white; }
+.statement { background-color: orange; color: black; }
+.outlook { background-color: white; color: black; }
+.airquality { background-color: grey; color: white; }
+
+/* LINKS */
+.report-link {
+    color: #e0f2fe;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.no-alerts {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ========================= */
+/* 📱*

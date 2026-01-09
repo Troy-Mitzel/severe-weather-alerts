@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Severe Weather Alerts</title>
+    <link rel="stylesheet" href="/static/style.css">
+
+    <script>
+        function refreshPage(button) {
+            button.disabled = true;
+            const spinner = document.getElementById("spinner");
+            spinner.style.display = "inline-block";
+            setTimeout(() => { location.reload(); }, 500);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            document.getElementById('locate-btn').addEventListener('click', () => {
+                if (!navigator.geolocation) {
+                    alert('Geolocation is not supported by your browser.');
+                    return;
+                }
+
+                const btn = document.getElementById('locate-btn');
+                btn.disabled = true;
+                btn.textContent = 'Locating…';
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const lat = position.coords.latitude;
+                        const lon = position.coords.longitude;
+                        window.location.href = `/?lat=${lat}&lon=${lon}`;
+                    },
+                    () => {
+                        alert('Unable to retrieve your location.');
+                        btn.disabled = false;
+                        btn.textContent = 'Use My Location';
+                    }
+                );
+            });
+
+            document.getElementById('clear-location-btn').addEventListener('click', () => {
+                window.location.href = "/?state=All States";
+            });
+        });
+    </script>
+</head>
+<body>
+
+<header>
+    <h1>Severe Weather Alerts</h1>
+</header>
+
+<!-- TOP CONTROLS -->
+<div class="top-controls">
+    <form method="get">
+        <select name="state" onchange="this.form.submit()" class="state-dropdown">
+            {% for state in states %}
+            <option value="{{ state }}" {% if state == selected_state %}selected{% endif %}>
+                {{ state }}
+            </option>
+            {% endfor %}
+        </select>
+    </form>
+
+    <button class="refresh-btn" onclick="refreshPage(this)">
+        Refresh <span id="spinner" class="spinner" style="display:none;">⏳</span>
+    </button>
+</div>
+
+<!-- LOCATION BUTTONS -->
+<div class="location-buttons">
+    <button id="locate-btn" class="refresh-btn">Use My Location</button>
+    <button id="clear-location-btn" class="refresh-btn">Stop Using Location / Show Dropdown</button>
+</div>
+
+{% if alerts|length == 0 %}
+    <p class="no-alerts">No current alerts for this state</p>
+{% endif %}
+
+<div class="alerts-container">
+{% for alert in alerts %}
+{% set event_lower = alert.properties.event.lower() %}
+
+<div class="alert
+{% if 'statement' in event_lower %} statement
+{% elif 'outlook' in event_lower %} outlook
+{% elif 'air quality' in event_lower %} airquality
+{% elif 'emergency' in event_lower %} emergency
+{% elif 'watch' in event_lower and 'winter' in event_lower %} winter-watch
+{% elif 'warning' in event_lower and 'winter' in event_lower %} winter-warning
+{% elif 'watch' in event_lower %} watch
+{% elif 'warning' in event_lower %} warning
+{% elif 'advisory' in event_lower %} advisory
+{% endif %}
+">
+
+    <div class="alert-shape"></div>
+
+    <h2>{{ alert.properties.event }}</h2>
+    <p><strong>Area:</strong> {{ alert.properties.areaDesc }}</p>
+    <p><strong>Severity:</strong> {{ alert.properties.severity }}</p>
+
+    {% if 'statement' in event_lower %}
+        <p><strong>Description:</strong> {{ alert.properties.description }}</p>
+    {% endif %}
+
+    <p>{{ alert.properties.headline }}</p>
+    <a href="{{ alert.id }}" target="_blank" class="report-link">Full NWS Report</a>
+</div>
+{% endfor %}
+</div>
+
+</body>
+</html>
