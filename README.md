@@ -2,6 +2,14 @@
 
 A simple Flask web application that fetches live severe weather alerts from the National Weather Service (NWS) and displays them in an easy-to-read format. Users can select a state from a dropdown or use their device's GPS location to see alerts relevant to them. The app also features a modern gradient background, color-coded alert boxes, and a mobile-friendly layout.
 
+All weather alert data is provided by the National Weather Service (NWS) / NOAA and is public domain. This project is not affiliated with or endorsed by NOAA/NWS; all credit goes to them for all alerts provided by this project/repository.
+
+## Data sources
+
+- [National Weather Service](https://www.weather.gov)  
+- [NOAA (National Oceanic and Atmospheric Administration)](https://www.noaa.gov)  
+- [NWS API Documentation](https://www.weather.gov/documentation/services-web-api)
+
 ## Features
 
 - Displays current severe weather alerts by state
@@ -52,3 +60,4 @@ A simple Flask web application that fetches live severe weather alerts from the 
 ## License
 
 MIT License
+
